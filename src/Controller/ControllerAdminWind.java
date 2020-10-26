@@ -6,6 +6,7 @@ Destytojas Mindaugas Liogys
 package Controller;
 
 
+import Backend.Person;
 import Backend.User;
 import Date.UserRepository;
 import javafx.collections.FXCollections;
@@ -16,9 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -59,6 +59,21 @@ public class ControllerAdminWind {
     private ImageView ImageAvatar;
 
     @FXML
+    private TableView<User> mainTable = new TableView<>();
+
+    @FXML
+    private TableColumn<User,Integer> id_coll;
+
+    @FXML
+    private TableColumn<User,String> name_coll;
+
+    @FXML
+    private TableColumn<User,String> surname_coll;
+
+    @FXML
+    private TableColumn<User,Integer> type_coll;
+
+    @FXML
     public void initialize() throws Exception {
         UserRepository rp = new UserRepository();
         if (rp.GetUserIMG(rp.GetUserLogIN()) != null) {
@@ -76,7 +91,11 @@ public class ControllerAdminWind {
             adminMainPane.setVisible(true);
             UserRepository rp = new UserRepository();
             ObservableList<User> items = FXCollections.observableArrayList(rp.GetListUser());
-            userListWin.setItems(items);
+           // name_coll.setCellValueFactory(new PropertyValueFactory<>("name"));
+            //surname_coll.setCellValueFactory(new PropertyValueFactory<>("surname"));
+           type_coll.setCellValueFactory(new PropertyValueFactory<User,Integer>("type"));
+            //userListWin.setItems(items);
+            mainTable.setItems(items);
 
         }
         @FXML

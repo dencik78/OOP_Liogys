@@ -18,14 +18,14 @@
             <Button layoutX="450.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickUserListButton" prefHeight="32.0" prefWidth="123.0" text="User List" textAlignment="CENTER" />
             <Button fx:id="adminPropertiesButton" layoutX="449.0" layoutY="55.0" mnemonicParsing="false" onAction="#clickPropertiesButton" prefHeight="32.0" prefWidth="123.0" text="Properties" />
             <Button fx:id="adminSingOutButton" layoutX="449.0" layoutY="293.0" mnemonicParsing="false" onAction="#ClickAdminSingOutButton" prefHeight="32.0" prefWidth="123.0" text="Sign Out" />
-            <AnchorPane fx:id="adminMainPane" layoutX="7.0" prefHeight="345.0" prefWidth="363.0">
+            <AnchorPane fx:id="adminMainPane" layoutX="7.0" prefHeight="345.0" prefWidth="363.0" visible="false">
                <children>
-                  <TableView prefHeight="292.0" prefWidth="369.0">
+                  <TableView fx:id="mainTable" prefHeight="292.0" prefWidth="369.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="97.0" text="Name" />
-                        <TableColumn prefWidth="153.0" text="Surname" />
-                        <TableColumn prefWidth="41.0" text="Type" />
+                      <TableColumn fx:id="id_coll" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="name_coll" prefWidth="97.0" text="Name" />
+                        <TableColumn fx:id="surname_coll" prefWidth="153.0" text="Surname" />
+                        <TableColumn fx:id="type_coll" prefWidth="41.0" text="Type" />
                     </columns>
                   </TableView>
                   <Button fx:id="DeleteButton" layoutX="98.0" layoutY="300.0" mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="25.0" prefWidth="67.0" text="Delete" />

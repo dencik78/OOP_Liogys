@@ -29,7 +29,6 @@ public class UserRepository  {
 //            User user3 = new User("Denis", "Martinkevic", LocalDate.now(), "d_ma", "1234", 0,null);
             userList.add(user1);
             userList.add(user2);
-//            userList.add(user3); "C:\\Users\\Computer\\Desktop\\download.jpg
         }
     }
     public void Registr(User user)throws Exception {
@@ -51,6 +50,8 @@ public class UserRepository  {
                 throw new Exception("Such user exists");
             }
         }
+
+
 
 
     public User LogON(String username, String password) throws Exception {

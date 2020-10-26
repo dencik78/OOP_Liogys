@@ -1,5 +1,6 @@
 package Backend;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 public class User extends Person {
     protected String username;
     protected String password;
-    private int type = 0;
+    private SimpleIntegerProperty type;
     private File IMG;
 
     public User (String name, String surname, LocalDate birthdate,String gender,String login,String password,int type,File IMG) throws Exception {
@@ -24,7 +25,7 @@ public class User extends Person {
             this.password = password;
 
 
-        this.type = type;
+        this.type = new SimpleIntegerProperty(type);
         this.IMG = IMG;
 
     }
@@ -35,19 +36,19 @@ public class User extends Person {
     public String GetPassword(){
         return password;
     }
-    public int GetType(){return type;}
+    public int GetType(){return type.get();}
     public File GetIMG(){return IMG;}
     public void SetImgURL(File i){
         this.IMG = i;
     }
-
+    
 
     public void SetPassword(String password){
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return name + " " + surname + "             User Type: " + type;
-    }
+//    @Override
+//    public String toString() {
+//        return name + " " + surname + "             User Type: " + type;
+//    }
 }
