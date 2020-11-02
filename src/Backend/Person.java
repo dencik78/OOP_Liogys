@@ -22,15 +22,20 @@ public class Person {
             throw new Exception("Invalid date value");
         else
             this.birthDate = birthDate;
-        if (gender == null || gender.isEmpty())
-            throw new Exception("You have not chosen gender");
-        else
-            this.gender = gender;
     }
 
 
     public String GetNameFull(){
         return name;
+    }
+    public String GetSurname(){
+        return surname;
+    }
+    public LocalDate GetBirthdayl(){
+        return birthDate;
+    }
+    public String GetGenderl(){
+        return gender;
     }
 
 }
