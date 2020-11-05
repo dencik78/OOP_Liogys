@@ -22,6 +22,8 @@ public class Person {
             throw new Exception("Invalid date value");
         else
             this.birthDate = birthDate;
+
+        this.gender = gender;
     }
 
 
@@ -31,10 +33,7 @@ public class Person {
     public String GetSurname(){
         return surname;
     }
-    public LocalDate GetBirthdayl(){
-        return birthDate;
-    }
-    public String GetGenderl(){
+    public String GetUserGender(){
         return gender;
     }
 
