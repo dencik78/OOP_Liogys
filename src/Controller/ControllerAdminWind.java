@@ -91,11 +91,10 @@ public class ControllerAdminWind {
             adminMainPane.setVisible(true);
             UserRepository rp = new UserRepository();
             ObservableList<User> items = FXCollections.observableArrayList(rp.GetListUser());
-           // name_coll.setCellValueFactory(new PropertyValueFactory<>("name"));
-            //surname_coll.setCellValueFactory(new PropertyValueFactory<>("surname"));
            type_coll.setCellValueFactory(new PropertyValueFactory<User,Integer>("type"));
-            //userListWin.setItems(items);
             mainTable.setItems(items);
+
+
 
         }
         @FXML
@@ -122,7 +121,7 @@ public class ControllerAdminWind {
         @FXML
         public void ClickAdminSingOutButton(ActionEvent actionEvent) throws Exception{
             UserRepository user = new UserRepository();
-            user.SetUserLogIN(null);
+            user.SetUserLogIN((User) null);
 
             //Close Windows
             adminSingOutButton.getScene().getWindow().hide();

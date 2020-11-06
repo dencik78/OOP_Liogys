@@ -9,10 +9,11 @@ import java.time.LocalDate;
 public class User extends Person {
     protected String username;
     protected String password;
-    private SimpleIntegerProperty type;
+    private int type;
     private File IMG;
+    protected int ID;
 
-    public User (String name, String surname, LocalDate birthdate,String gender,String login,String password,int type,File IMG) throws Exception {
+    public User (String name, String surname, LocalDate birthdate,String gender,String login,String password,int type,File IMG,int ID) throws Exception {
         super(name,surname,birthdate,gender);
 
         if (login == null || login.isEmpty())
@@ -25,10 +26,13 @@ public class User extends Person {
             this.password = password;
 
 
-        this.type = new SimpleIntegerProperty(type);
+        this.type = type;
         this.IMG = IMG;
+        this.ID = ID;
 
     }
+
+
     public LocalDate GetBirthday(){return birthDate;}
     public String GetUsername(){
         return username;
@@ -36,7 +40,7 @@ public class User extends Person {
     public String GetPassword(){
         return password;
     }
-    public int GetType(){return type.get();}
+    public int GetType(){return type;}
     public File GetIMG(){return IMG;}
     public void SetImgURL(File i){
         this.IMG = i;

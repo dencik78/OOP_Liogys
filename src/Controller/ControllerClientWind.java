@@ -5,6 +5,7 @@ Destytojas Mindaugas Liogys
 
 package Controller;
 
+import Backend.User;
 import Date.UserRepository;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -70,7 +71,7 @@ public class ControllerClientWind {
     @FXML
     void ClickClientSingOutButton(ActionEvent event) throws Exception {
         UserRepository user = new UserRepository();
-        user.SetUserLogIN(null);
+        user.SetUserLogIN((User)null);
 
         //Close Windows
         clientSingOutButton.getScene().getWindow().hide();

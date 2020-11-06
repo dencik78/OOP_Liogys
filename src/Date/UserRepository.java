@@ -6,7 +6,9 @@ import Backend.User;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
+import javax.swing.*;
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -27,56 +29,95 @@ public class UserRepository  {
 
 // Type = 1 - Admin
 // Type = 0 - user
-//        if (userList.size() == 0) {
-//            User user1 = new User("Denis", "Martinkevic", LocalDate.now(),"Men" ,"d_mart", "1234", 1,null);
-//          User user2 = new User("Denis", "Martinkevic", LocalDate.now(),"Men", "q", "q", 0,null);
-////            User user3 = new User("Denis", "Martinkevic", LocalDate.now(), "d_ma", "1234", 0,null);
-//            userList.add(user1);
-//            dbl.addUserDB(user1);
-//            userList.add(user2);
-//        }
     }
     public void Registr(User user)throws Exception {
 
-//        User u = null;
-//        for (User userChek : userList) {
-//            if (userChek.GetUsername().equals(user.GetUsername())) {
-//                u = userChek;
-//                break;
-//            }
-//        }
-//        if (u == null) {
-//            Period period = Period.between(user.GetBirthday(), LocalDate.now());
-//            if (period.getYears() >= 14)
-//                userList.add(user);
-//            else
-//                throw new Exception("You are still small");
-//            } else {
-//                throw new Exception("Such user exists");
-//            }
-          //  DataBaseConnection dbl = new DataBaseConnection();
+        String select = "SELECT * FROM " + cons.USER_TABLE + " WHERE " + cons.USER_USERNAME + "=?";
+            PreparedStatement prST1 = dbl.getDbConnection().prepareStatement(select);
+            prST1.setString(1, user.GetUsername());
 
-            Period period = Period.between(user.GetBirthday(), LocalDate.now());
-            if (period.getYears() >= 14) {
-                dbl.addUserDB(user);
+            ResultSet resSet = prST1.executeQuery(); // получить данный из БД
+            int counter = 0;
+
+            while (resSet.next()) {
+                counter++;
             }
-            else {
-                throw new Exception("You are still small");
+            resSet.close();
+            if(counter >= 1){
+                throw new Exception("User");
             }
 
+        Period period = Period.between(user.GetBirthday(), LocalDate.now());
+        if (period.getYears() >= 14) {
+            String insert = "INSERT INTO " + cons.USER_TABLE + "(" +
+                    cons.USER_NAME + "," + cons.USER_SURNAME + "," +
+                    cons.USER_BIRTHDAY + "," + cons.USER_GENDER + "," +
+                    cons.USER_USERNAME + "," + cons.USER_PASSWORD + "," + cons.USER_TYPE + ")" +
+                    "VALUES (?,?,?,?,?,?,?)";
+            try {
+                PreparedStatement prST = dbl.getDbConnection().prepareStatement(insert);
+                prST.setString(1, user.GetNameFull());
+                prST.setString(2, user.GetSurname());
+                prST.setString(3, user.GetBirthday().toString());
+                prST.setString(4, user.GetUserGender());
+                prST.setString(5, user.GetUsername());
+                prST.setString(6, user.GetPassword());
+                prST.setInt(7, user.GetType());
+
+                prST.executeUpdate(); // закинуть в базу данных
+            } catch (SQLException exc) {
+                JOptionPane.showMessageDialog(null, exc);
+            } catch (ClassNotFoundException exc) {
+                JOptionPane.showMessageDialog(null, exc);
+            }
+        } else {
+            throw new Exception("You are still small");
         }
 
-
-
-
-    public void LogON(String username, String password) throws Exception {
-        ResultSet res = dbl.getUser(username,password);
-        if(res == null)
-            throw new Exception("Wrong username or password");
-//        else {
-//            //return res;
-//        }
     }
+
+
+    public User LogON(String username, String password) throws Exception {
+
+        User User1 = null;
+        String select = "SELECT * FROM " + cons.USER_TABLE + " WHERE " + cons.USER_USERNAME + "=? AND " + cons.USER_PASSWORD + "=?";
+        try {
+            PreparedStatement prST = dbl.getDbConnection().prepareStatement(select);
+            prST.setString(1, username);
+            prST.setString(2, password);
+
+            ResultSet resSet = prST.executeQuery(); // получить данный из БД
+            int counter = 0;
+
+            while (resSet.next()) {
+                counter++;
+                String name = resSet.getString("name");
+                String surname = resSet.getString("surname");
+                LocalDate birthdate = LocalDate.parse(resSet.getString("birthday"));
+                String gender = resSet.getString("gender");
+                String surname1 = resSet.getString("username");
+                String password1 = resSet.getString("password");
+                int type = resSet.getInt("type");
+                int ID = resSet.getInt("userId");
+                    
+                User1 = new User(name,surname,birthdate,gender,surname1,password1,type,null,ID);
+            }
+
+            if (counter <= 0)
+                throw new Exception("Not wrong Username");
+
+            resSet.close();
+
+        }catch(SQLException exc) {
+            JOptionPane.showMessageDialog(null,exc);
+        }catch (ClassNotFoundException exc){
+            JOptionPane.showMessageDialog(null,exc);
+        }
+
+        //eсли найдет вернеть пользователя если нет то null
+        return User1;
+    }
+
 
 
 

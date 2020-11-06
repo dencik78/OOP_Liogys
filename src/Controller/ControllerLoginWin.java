@@ -38,7 +38,7 @@ public class ControllerLoginWin {
     public void LoginClickk(ActionEvent actionEvent) throws Exception {
         UserRepository repository = new UserRepository();
         try {
-            User user = repository.LogON(loginField.getText(), passwordField.getText());
+            User user = repository.LogON(loginField.getText().trim(), passwordField.getText().trim());
             repository.SetUserLogIN(user);
             if(user.GetType() == 1){
                 newWindow("../Frontend/adminWind.fxml","Admin");

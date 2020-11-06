@@ -21,6 +21,7 @@ public class ControllerRegisterWin {
 
    int type = 0;
    File IMG = null;
+   int id = 0;
 
     @FXML
     private Button registrWinButton;
@@ -74,7 +75,7 @@ public class ControllerRegisterWin {
                 chekBoxGender = "Women";
             }
             UserRepository repository = new UserRepository();
-            repository.Registr(new User(nameField.getText(),surnameField.getText(), birthday.getValue(),chekBoxGender,loginField.getText(),passwordField.getText() , type,IMG));
+            repository.Registr(new User(nameField.getText(),surnameField.getText(), birthday.getValue(),chekBoxGender,loginField.getText(),passwordField.getText() ,type,IMG,id));
             JOptionPane.showMessageDialog(null,"Create new user");
              registrWinButton.getScene().getWindow().hide();
             Parent root = FXMLLoader.load(getClass().getResource("../Frontend/LoginWin.fxml"));
