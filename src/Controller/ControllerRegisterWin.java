@@ -94,9 +94,13 @@ public class ControllerRegisterWin {
     void clickReturnButton(ActionEvent event) throws Exception {
 
         returnButton.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../Frontend/guestWin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/clientLoginWin.fxml"));
+        Parent root = loader.load();
+        ControllerClientWind controller = loader.getController();
+        controller.showCategories();
+        controller.displayItems();
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Guest window");
+        dialogStage.setTitle("window");
         dialogStage.setScene(new Scene(root, 600, 450));
         dialogStage.centerOnScreen();
         dialogStage.show();

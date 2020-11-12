@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane focusTraversable="true" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ItemPublicViewController">
+   <children>
+      <ImageView fx:id="imagesView" fitHeight="87.0" fitWidth="86.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="titleLable" layoutX="136.0" layoutY="14.0" style="-fx-border-color: #E0FFFF;" text="Label" textAlignment="CENTER" />
+      <Label fx:id="descriptionLabel" layoutX="136.0" layoutY="42.0" text="Label" />
+      <Label layoutX="115.0" layoutY="78.0" prefHeight="17.0" prefWidth="34.0" text="Price:" />
+      <Label fx:id="priceLabel" layoutX="157.0" layoutY="78.0" text="Label" />
+   </children>
+</AnchorPane>

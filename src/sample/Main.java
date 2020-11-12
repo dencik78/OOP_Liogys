@@ -1,5 +1,6 @@
 package sample;
 
+import Controller.ControllerGuestWin;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,13 +15,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../Frontend/guestWin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/guestWin.fxml"));
+        Parent root = loader.load();
+        ControllerGuestWin controller = loader.getController();
+        controller.showCategories();
+        controller.displayOnStartup();
         primaryStage.setTitle("Program Name");
         primaryStage.setScene(new Scene(root, 600, 425));
         primaryStage.centerOnScreen();
         primaryStage.show();
 
-        //ImageView imgViev = new ImageView(null);
 
     }
 

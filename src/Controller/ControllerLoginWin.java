@@ -6,8 +6,10 @@ Destytojas Mindaugas Liogys
 package Controller;
 
 import Backend.User;
+import Backend.categories;
 import Date.UserRepository;
 
+import Date.itemsRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +19,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ControllerLoginWin {
+
 
     @FXML
     private Button buttonLoginON;
@@ -34,16 +41,28 @@ public class ControllerLoginWin {
     @FXML
     private PasswordField passwordField;
 
+    private List<categories> categoriesList;
+
     @FXML
     public void LoginClickk(ActionEvent actionEvent) throws Exception {
+        buttonLoginON.getScene().getWindow().hide();
         UserRepository repository = new UserRepository();
         try {
             User user = repository.LogON(loginField.getText().trim(), passwordField.getText().trim());
             repository.SetUserLogIN(user);
             if(user.GetType() == 1){
-                newWindow("../Frontend/adminWind.fxml","Admin");
+                //newWindow("../Frontend/adminWind.fxml","Admin");
             }else{
-                newWindow("../Frontend/clientLoginWin.fxml","User");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/clientLoginWin.fxml"));
+                Parent root = loader.load();
+                ControllerClientWind controller = loader.getController();
+                controller.showCategories();
+                controller.displayItems();
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("window");
+                dialogStage.setScene(new Scene(root, 600, 450));
+                dialogStage.centerOnScreen();
+                dialogStage.show();
             }
         }
         catch (Exception exc){
@@ -52,19 +71,23 @@ public class ControllerLoginWin {
     }
 
     @FXML
-    void clickReturn(ActionEvent event) throws IOException {
-        newWindow("../Frontend/guestWin.fxml","Guest");
-    }
-
-    //new windows open metod
-    public void newWindow(String windURL,String WindName) throws IOException {
+    void clickReturn(ActionEvent event) throws Exception {
         buttonLoginON.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource(windURL));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/guestWin.fxml"));
+        Parent root = loader.load();
+
+        ControllerGuestWin controller = loader.getController();
+        controller.showCategories();
+        controller.displayOnStartup();
+
         Stage dialogStage = new Stage();
-        dialogStage.setTitle(WindName +" " + "window");
+        dialogStage.setTitle("Guest" +" " + "window");
         dialogStage.setScene(new Scene(root, 600, 450));
         dialogStage.centerOnScreen();
         dialogStage.show();
     }
+
+
 }
 

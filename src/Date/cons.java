@@ -17,6 +17,9 @@ public class cons {
     public static final String ITEMS_ID = "id";
     public static final String ITEMS_NAME = "name";
     public static final String ITEMS_PRICE = "price";
+    public static final String ITEMS_DESCRIPTION = "description";
+    public static final String ITEMS_CATEGORIESID = "categoriesId";
+    public static final String ITEMS_IMAGES = "images";
 
     //COMMENT TABLE
     public static final String COMMENT_TABLE = "comment";
@@ -24,5 +27,10 @@ public class cons {
     public static final String COMMENT_IDUSER = "idUser";
     public static final String COMMENT_IDITEMS = "idItems";
     public static final String COMMENT_COMMECNT = "comment";
+
+    //CATEGORIES TABLE
+    public static final String CATEGORIES_TABLE = "categories";
+    public static final String CATEGORIES_ID = "id";
+    public static final String CATEGORIES_TITLE = "title";
 
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class User extends Person {
     protected String username;
     protected String password;
-    private int type;
+    private int type =2 ;
     private File IMG;
     protected int ID;
 

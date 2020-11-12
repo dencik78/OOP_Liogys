@@ -144,6 +144,11 @@ public class UserRepository  {
     public void delUser(int i){
         userList.remove(i);
     }
+
+
+
+
+
     public void SetUserLogIN(User user){
         userLogIN = user;
     }
