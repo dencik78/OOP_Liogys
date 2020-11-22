@@ -27,7 +27,7 @@ public class ItemPublicViewController {
         titleLable.setText(item.getName());
         descriptionLabel.setText(item.getDescription());
         priceLabel.setText(String.valueOf(item.getPrice()));
-        File file = new File("/src/View/" + item.getImages());
+        File file = new File(item.getImages());
         imagesView.setImage(new Image(file.toURI().toString()));
 
     }

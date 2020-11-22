@@ -11,6 +11,7 @@ public class cons {
     public static final String USER_USERNAME = "username";
     public static final String USER_PASSWORD = "password";
     public static final String USER_TYPE = "type";
+    public static final String USER_IMAGES = "imagesUser";
 
     //ITEMS TABLE
     public static final String ITEMS_TABLE = "items";
@@ -24,13 +25,20 @@ public class cons {
     //COMMENT TABLE
     public static final String COMMENT_TABLE = "comment";
     public static final String COMMENT_ID = "id";
-    public static final String COMMENT_IDUSER = "idUser";
-    public static final String COMMENT_IDITEMS = "idItems";
-    public static final String COMMENT_COMMECNT = "comment";
+    public static final String COMMENT_USERID = "userID";
+    public static final String COMMENT_ITEMID = "itemID";
+    public static final String COMMNET_DATE = "date";
+    public static final String COMMENT_TEXT = "text";
 
     //CATEGORIES TABLE
     public static final String CATEGORIES_TABLE = "categories";
     public static final String CATEGORIES_ID = "id";
     public static final String CATEGORIES_TITLE = "title";
 
+
+    //SAVED ITEMS TABLE
+    public static final String SAVEDITEM_TABLE = "saveditem";
+    public static final String SAVEDITEM_ID = "id";
+    public static final String SAVEDITEM_USERID = "userId";
+    public static final String SAVEDITEM_ITEMID = "itemId";
 }

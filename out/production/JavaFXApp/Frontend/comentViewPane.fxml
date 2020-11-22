@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.comentViewPaneController">
+   <children>
+      <Label fx:id="nicknameCommentLabel" layoutX="6.0" layoutY="8.0" prefHeight="17.0" prefWidth="66.0" text="Label" />
+      <Label fx:id="dateCommentPane" layoutX="180.0" layoutY="8.0" prefHeight="17.0" prefWidth="66.0" text="Label" />
+      <Label fx:id="commentTextPane" layoutX="8.0" layoutY="32.0" prefHeight="25.0" prefWidth="295.0" text="Label" />
+   </children>
+</Pane>

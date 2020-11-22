@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ItemClientViewController">
+<AnchorPane prefHeight="111.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ItemClientViewController">
    <children>
       <Pane prefHeight="100.0" prefWidth="300.0">
          <children>
             <Pane fx:id="contentPane" prefHeight="100.0" prefWidth="220.0" />
             <Button fx:id="addToCardButton" layoutX="220.0" layoutY="2.0" mnemonicParsing="false" text="Add to Cart" />
-            <Button fx:id="InfoButton" layoutX="220.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Info" />
+            <Button fx:id="InfoButton" layoutX="220.0" layoutY="38.0" mnemonicParsing="false" onAction="#infobuttonClick" prefHeight="25.0" prefWidth="77.0" text="Info" />
+            <Button fx:id="saveItemButton" layoutX="270.0" layoutY="74.0" mnemonicParsing="false" onAction="#saveItemButtonClick" prefHeight="25.0" prefWidth="30.0" text="☆" />
          </children>
       </Pane>
    </children>

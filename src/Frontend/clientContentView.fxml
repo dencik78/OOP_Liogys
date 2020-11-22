@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Pane fx:id="contentPaneView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.clientContentViewController">
+   <children>
+      <ScrollPane layoutX="109.0" prefHeight="339.0" prefWidth="314.0">
+         <content>
+            <FlowPane fx:id="flowContentClient" prefHeight="341.0" prefWidth="314.0" />
+         </content>
+      </ScrollPane>
+      <VBox fx:id="menuClientBox" prefHeight="339.0" prefWidth="102.0" />
+   </children>
+</Pane>

@@ -23,6 +23,11 @@ public class categories {
     public String getCategoriesTitle(){
         return title;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
     public List<item> getCategoriesList(){
         return itemList;
     }

@@ -13,7 +13,7 @@ public class CategoryButtonEventHandler<ActionEvent extends Event> implements Ev
 
    private categories categories;
    private ControllerGuestWin cgw;
-    private ControllerClientWind cgw1;
+    private clientContentViewController cgw1;
 
    private UserRepository rep = new UserRepository();
    private User user = rep.GetUserLogIN();
@@ -23,7 +23,7 @@ public class CategoryButtonEventHandler<ActionEvent extends Event> implements Ev
        this.cgw = cgw;
    }
 
-    public CategoryButtonEventHandler(categories categories,ControllerClientWind cgw) throws Exception {
+    public CategoryButtonEventHandler(categories categories,clientContentViewController cgw) throws Exception {
         this.categories = categories;
         this.cgw1 = cgw;
     }
@@ -34,14 +34,14 @@ public class CategoryButtonEventHandler<ActionEvent extends Event> implements Ev
             if(cgw==null) {
                 if (user == null)
                     cgw1.displayItems(categories.getCategoriesList());
-                else if (user.GetType() == 1)
-                    cgw1.displayItems(categories.getCategoriesList());
+                else if (user.getType() == 1)
+                    cgw1.displayItemsAdmin(categories.getCategoriesList());
                 else
                     cgw1.displayItems(categories.getCategoriesList());
             }else {
                 if (user == null)
                     cgw.displayItems(categories.getCategoriesList(), 2);
-                else if (user.GetType() == 1)
+                else if (user.getType() == 1)
                     cgw.displayItems(categories.getCategoriesList(), 1);
                 else
                     cgw.displayItems(categories.getCategoriesList(), 0);

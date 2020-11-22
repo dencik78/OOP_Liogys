@@ -2,15 +2,23 @@ package Backend;
 
 public class item {
     private int id;
-    private String name;
-    private double price;
+    private String title;
+    private String price;
     private String description;
     private String images;
 
 
-    public item(int id,String name,double price,String description,String images){
+    public item(int id,String name,String price,String description,String images){
         this.id = id;
-        this.name = name;
+        this.title = name;
+        this.price = price;
+        this.description = description;
+        this.images = images;
+
+    }
+    public item(String name,String price,String description,String images){
+
+        this.title = name;
         this.price = price;
         this.description = description;
         this.images = images;
@@ -22,10 +30,10 @@ public class item {
     }
 
     public String getName() {
-        return name;
+        return title;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 

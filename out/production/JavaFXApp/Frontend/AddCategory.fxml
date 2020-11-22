@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="MainPain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="249.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.addCategoryController">
+   <children>
+      <Pane layoutX="13.0" layoutY="12.0" prefHeight="87.0" prefWidth="219.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Text layoutX="59.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Category" />
+            <TextField fx:id="newCategoryTextField" layoutX="45.0" layoutY="41.0" prefHeight="25.0" prefWidth="163.0" />
+            <Text layoutX="14.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
+         </children>
+      </Pane>
+      <Button fx:id="buttonSaveNewCategory" layoutX="97.0" layoutY="113.0" mnemonicParsing="false" onAction="#clickNewCategorySave" text="Save" />
+   </children>
+</Pane>

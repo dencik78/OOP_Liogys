@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="ItemInfoPane" prefHeight="339.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.itemInfoContentController">
+   <children>
+      <Pane fx:id="itemInfoPaneClientWind" prefHeight="200.0" prefWidth="438.0" />
+      <ScrollPane layoutY="200.0" prefHeight="140.0" prefWidth="438.0">
+         <content>
+            <FlowPane fx:id="commentFlowPaneClient" prefHeight="139.0" prefWidth="422.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</Pane>

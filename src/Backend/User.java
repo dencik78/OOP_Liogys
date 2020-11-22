@@ -9,7 +9,10 @@ import java.time.LocalDate;
 public class User extends Person {
     protected String username;
     protected String password;
-    private int type =2 ;
+    protected String name;
+    protected String surname;
+    protected LocalDate birthday;
+    private int type = 2 ;
     private File IMG;
     protected int ID;
 
@@ -25,13 +28,22 @@ public class User extends Person {
         else
             this.password = password;
 
-
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthdate;
         this.type = type;
         this.IMG = IMG;
         this.ID = ID;
 
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
 
     public LocalDate GetBirthday(){return birthDate;}
     public String GetUsername(){
@@ -40,13 +52,14 @@ public class User extends Person {
     public String GetPassword(){
         return password;
     }
-    public int GetType(){return type;}
+    public int getType(){return type;}
     public File GetIMG(){return IMG;}
     public void SetImgURL(File i){
         this.IMG = i;
     }
-    
 
+
+    public int getID(){return ID;}
     public void SetPassword(String password){
         this.password = password;
     }

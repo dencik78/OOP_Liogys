@@ -1,10 +1,9 @@
 
 package Date;
 
-import Backend.Person;
 import Backend.User;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.io.File;
@@ -18,15 +17,14 @@ import java.util.List;
 
 public class UserRepository  {
 
-    protected static List<User> userList = new ArrayList<>();
+    int t = 0;
+    protected static ObservableList<User> userList = FXCollections.observableArrayList();
     private static User userLogIN;
     DataBaseConnection dbl = new DataBaseConnection();
 
-    private static int IdUser;
 
 
     public UserRepository() throws Exception {
-
 // Type = 1 - Admin
 // Type = 0 - user
     }
@@ -52,8 +50,8 @@ public class UserRepository  {
             String insert = "INSERT INTO " + cons.USER_TABLE + "(" +
                     cons.USER_NAME + "," + cons.USER_SURNAME + "," +
                     cons.USER_BIRTHDAY + "," + cons.USER_GENDER + "," +
-                    cons.USER_USERNAME + "," + cons.USER_PASSWORD + "," + cons.USER_TYPE + ")" +
-                    "VALUES (?,?,?,?,?,?,?)";
+                    cons.USER_USERNAME + "," + cons.USER_PASSWORD + "," + cons.USER_TYPE +","+ cons.USER_IMAGES + ")" +
+                    "VALUES (?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement prST = dbl.getDbConnection().prepareStatement(insert);
                 prST.setString(1, user.GetNameFull());
@@ -62,7 +60,8 @@ public class UserRepository  {
                 prST.setString(4, user.GetUserGender());
                 prST.setString(5, user.GetUsername());
                 prST.setString(6, user.GetPassword());
-                prST.setInt(7, user.GetType());
+                prST.setInt(7, user.getType());
+                prST.setString(8,"null");
 
                 prST.executeUpdate(); // закинуть в базу данных
             } catch (SQLException exc) {
@@ -79,16 +78,20 @@ public class UserRepository  {
 
     public User LogON(String username, String password) throws Exception {
 
+        DataBaseConnection dbll = new DataBaseConnection();
         User User1 = null;
         String select = "SELECT * FROM " + cons.USER_TABLE + " WHERE " + cons.USER_USERNAME + "=? AND " + cons.USER_PASSWORD + "=?";
         try {
-            PreparedStatement prST = dbl.getDbConnection().prepareStatement(select);
+            PreparedStatement prST = dbll.getDbConnection().prepareStatement(select);
             prST.setString(1, username);
             prST.setString(2, password);
 
             ResultSet resSet = prST.executeQuery(); // получить данный из БД
             int counter = 0;
 
+
+
+            ResultSet s;
             while (resSet.next()) {
                 counter++;
                 String name = resSet.getString("name");
@@ -99,13 +102,16 @@ public class UserRepository  {
                 String password1 = resSet.getString("password");
                 int type = resSet.getInt("type");
                 int ID = resSet.getInt("userId");
-                    
-                User1 = new User(name,surname,birthdate,gender,surname1,password1,type,null,ID);
+                String images = resSet.getString("imagesUser");
+                if(images.equals(null)||images.equals("null") || images == null){
+                    User1 = new User(name,surname,birthdate,gender,surname1,password1,type,null,ID);
+                }else{
+                    File file = new File(images);
+                    User1 = new User(name,surname,birthdate,gender,surname1,password1,type,file,ID);
+                }
             }
-
             if (counter <= 0)
                 throw new Exception("Not wrong Username");
-
             resSet.close();
 
         }catch(SQLException exc) {
@@ -122,9 +128,19 @@ public class UserRepository  {
 
 
     public void PasswordChange(String oldPassword,String newPassword,String repeatPassword) throws Exception{
+
+
             if (userLogIN.GetPassword().equals(oldPassword))
                 if (newPassword.equals(repeatPassword)) {
-                    userLogIN.SetPassword(newPassword);
+                    //userLogIN.SetPassword(newPassword);
+                    String sql = "UPDATE oop." + cons.USER_TABLE +" SET " +
+                            cons.USER_PASSWORD + " =? WHERE (" + cons.USER_ID + "=? )" ;
+                    PreparedStatement prST = dbl.getDbConnection().prepareStatement(sql);
+
+                    prST.setString(1,newPassword);
+                    prST.setString(2,String.valueOf(userLogIN.getID()));
+
+                    prST.executeUpdate();
                 }
                 else
                     throw new Exception("Wrong password");
@@ -132,16 +148,51 @@ public class UserRepository  {
                 throw new Exception("The passwords don't match");
     }
 
-    public List<User> GetListUser(){
-        return userList;
+    public static ObservableList<User> GetListUser() throws Exception {
+        if(userList.isEmpty()){
+        String sql = "SELECT * FROM oop.usertable";
+        DataBaseConnection dbl = new DataBaseConnection();
+        PreparedStatement prST = dbl.getDbConnection().prepareStatement(sql);
+
+        ResultSet resSet = prST.executeQuery();
+
+        while (resSet.next()) {
+            User User1 = null;
+            String name = resSet.getString("name");
+            String surname = resSet.getString("surname");
+            LocalDate birthdate = LocalDate.parse(resSet.getString("birthday"));
+            String gender = resSet.getString("gender");
+            String surname1 = resSet.getString("username");
+            String password1 = resSet.getString("password");
+            int type = resSet.getInt("type");
+            int ID = resSet.getInt("userId");
+            String images = resSet.getString("imagesUser");
+
+            if (images.equals(null) || images.equals("null") || images == null) {
+                User1 = new User(name, surname, birthdate, gender, surname1, password1, type, null, ID);
+            } else {
+                File file = new File(images);
+                User1 = new User(name, surname, birthdate, gender, surname1, password1, type, file, ID);
+            }
+            userList.add(User1);
+        }
+        resSet.close();
+        }
+            return userList;
+
     }
     public User GetUserLogIN(){return userLogIN;}
     public User GetUserLogInIndex(int SelIndexList){
-
         return userList.get(SelIndexList);
     }
 
-    public void delUser(int i){
+
+    public void delUser(int i) throws SQLException, ClassNotFoundException {
+
+        String sql = "DELETE FROM oop.usertable WHERE ("+cons.USER_ID+" = "+userList.get(i).getID()+")";
+        PreparedStatement prST = dbl.getDbConnection().prepareStatement(sql);
+
+        prST.executeUpdate();
         userList.remove(i);
     }
 
@@ -153,16 +204,40 @@ public class UserRepository  {
         userLogIN = user;
     }
 
-    public void SetUserLogIN(ResultSet res) throws SQLException {
-        IdUser = res.getRow();
-        System.out.println(IdUser);
-    }
+//    public void SetUserLogIN(ResultSet res) throws SQLException {
+//        IdUser = res.getRow();
+//
+//    }
 
     public File GetUserIMG(User user){
        return user.GetIMG();
     }
-    public void SetUserIMG(User user, File i){
+
+    public void SetUserIMG(User user, File i) throws SQLException, ClassNotFoundException {
         //IMGuser = i;
         user.SetImgURL(i);
+
+        String sql = "UPDATE oop . " + cons.USER_TABLE + " SET " + cons.USER_IMAGES
+                + " =? WHERE (" + cons.USER_ID + " = " + user.getID() + ")";
+
+        PreparedStatement prST = dbl.getDbConnection().prepareStatement(sql);
+        prST.setString(1,String.valueOf(i));
+        prST.executeUpdate();
     }
-}
+
+    public User GetUserCom(int userId) throws Exception {
+        User user;
+        List<User> userList1 = new ArrayList<>();
+       userList1 = GetListUser();
+        for(User o : userList1){
+            if(o.getID() == userId)
+                break;
+            else
+                t++;
+        }
+        user = userList1.get(t);
+        return user;
+        }
+
+    }
+

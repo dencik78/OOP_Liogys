@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="339.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SavedItemClient">
+   <children>
+      <ScrollPane prefHeight="339.0" prefWidth="423.0">
+         <content>
+            <FlowPane fx:id="SavedItemPanelMain" prefHeight="327.0" prefWidth="417.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -9,7 +9,6 @@ import Backend.User;
 import Backend.categories;
 import Date.UserRepository;
 
-import Date.itemsRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,14 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ControllerLoginWin {
@@ -49,26 +44,45 @@ public class ControllerLoginWin {
         UserRepository repository = new UserRepository();
         try {
             User user = repository.LogON(loginField.getText().trim(), passwordField.getText().trim());
-            repository.SetUserLogIN(user);
-            if(user.GetType() == 1){
-                //newWindow("../Frontend/adminWind.fxml","Admin");
+            if(user != null) {
+                repository.SetUserLogIN(user);
+                if (user.getType() == 1) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/adminWind.fxml"));
+                    Parent root = loader.load();
+                    ControllerAdminWind controller = loader.getController();
+                    controller.display();
+                    Stage dialogStage = new Stage();
+                    dialogStage.setTitle("window");
+                    dialogStage.setScene(new Scene(root, 600, 450));
+                    dialogStage.centerOnScreen();
+                    dialogStage.show();
+                } else if (user.getType() == 0) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/clientLoginWin.fxml"));
+                    Parent root = loader.load();
+                    ControllerClientWind controller = loader.getController();
+                    controller.display();
+                    Stage dialogStage = new Stage();
+                    dialogStage.setTitle("window");
+                    dialogStage.setScene(new Scene(root, 600, 450));
+                    dialogStage.centerOnScreen();
+                    dialogStage.show();
+                }
             }else{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/clientLoginWin.fxml"));
-                Parent root = loader.load();
-                ControllerClientWind controller = loader.getController();
-                controller.showCategories();
-                controller.displayItems();
-                Stage dialogStage = new Stage();
-                dialogStage.setTitle("window");
-                dialogStage.setScene(new Scene(root, 600, 450));
-                dialogStage.centerOnScreen();
-                dialogStage.show();
+                throw new Exception("Excepcion");
             }
         }
         catch (Exception exc){
             JOptionPane.showMessageDialog(null,exc.getMessage());
+
+            Parent root = FXMLLoader.load(getClass().getResource("../Frontend/LoginWin.fxml"));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Login window");
+            dialogStage.setScene(new Scene(root, 600, 450));
+            dialogStage.centerOnScreen();
+            dialogStage.show();
         }
     }
+
 
     @FXML
     void clickReturn(ActionEvent event) throws Exception {

@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -38,23 +39,37 @@ import java.util.List;
 public class ControllerClientWind {
 
     @FXML
+    private Pane itemInfoPaneClientWind;
+
+    @FXML
+    private FlowPane commentFlowPaneClient;
+
+    @FXML
     private Pane ClientPane;
-
-    @FXML
-    private Button shopClientButton;
-
-    @FXML
-    private VBox VBoxMenu;
 
     @FXML
     private FlowPane contentFlowClientPane;
 
     @FXML
-    private Button clientSingOutButton;
+    private VBox VBoxMenu;
 
+    @FXML
+    private Button clientPropertiesButton;
+
+    @FXML
+    private Button clientSingOutButton;
 
     @FXML
     private AnchorPane clientPropertiesPane;
+
+    @FXML
+    private Button SavedItemButton;
+
+    @FXML
+    private Button imageUnpButton;
+
+    @FXML
+    private Pane SavedItemPane;
 
     @FXML
     private TextField repeatPasswordField;
@@ -64,6 +79,12 @@ public class ControllerClientWind {
 
     @FXML
     private TextField newPasswordField;
+
+    @FXML
+    private Button shopClientButton;
+
+    @FXML
+    private Text nickNameText;
 
     @FXML
     private ImageView ImageAvatar;
@@ -79,7 +100,7 @@ public class ControllerClientWind {
     @FXML
     public void initialize() throws Exception {
         UserRepository rp = new UserRepository();
-        if (rp.GetUserIMG(rp.GetUserLogIN()) != null) {
+        if (rp. GetUserIMG(rp.GetUserLogIN()) != null) {
             System.out.println(true);
             BufferedImage bf;
             bf = ImageIO.read(rp.GetUserIMG(rp.GetUserLogIN()));
@@ -92,36 +113,16 @@ public class ControllerClientWind {
 
     }
 
+    public void display() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/clientContentView.fxml"));
+        Parent root = loader.load();
+        clientContentViewController controller = loader.getController();
+        controller.setPane(ClientPane);
+        controller.showCategories();
+        controller.displayItems();
+        ClientPane.getChildren().add(root);
+    }
 
-    public void showCategories() throws Exception {
-        for (categories c : categoriesList) {
-            Button btn = new Button(c.getCategoriesTitle());
-            btn.setPrefWidth(110);
-            CategoryButtonEventHandler hendler = new CategoryButtonEventHandler(c, this);
-            btn.setOnAction(hendler);
-            VBoxMenu.getChildren().add(btn);
-        }
-    }
-    public void displayItems() throws IOException {
-        contentFlowClientPane.getChildren().clear();
-            for (item i : itemsList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/ItemClientView.fxml"));
-                Parent root = loader.load();
-                ItemClientViewController controller = loader.getController();
-                controller.displayItem(i);
-                contentFlowClientPane.getChildren().add(root);
-            }
-    }
-    public void displayItems(List<item> items) throws IOException {
-        contentFlowClientPane.getChildren().clear();
-        for (item i : items) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/ItemClientView.fxml"));
-            Parent root = loader.load();
-            ItemClientViewController controller = loader.getController();
-            controller.displayItem(i);
-            contentFlowClientPane.getChildren().add(root);
-        }
-    }
 
     @FXML
     void ClickClientSingOutButton(ActionEvent event) throws Exception {
@@ -146,15 +147,15 @@ public class ControllerClientWind {
 
     @FXML
     void clickPropertiesButton(ActionEvent event) throws Exception {
-        if(ClientPane.isVisible())
+        SavedItemPane.setVisible(false);
             ClientPane.setVisible(false);
         clientPropertiesPane.setVisible(true);
     }
     @FXML
-    void shopClientButton(ActionEvent event) throws Exception{
-        if(clientPropertiesPane.isVisible())
+    void shopClientButton(ActionEvent event) throws Exception {
+            ClientPane.setVisible(true);
             clientPropertiesPane.setVisible(false);
-        ClientPane.setVisible(true);
+            SavedItemPane.setVisible(false);
     }
 
 
@@ -186,5 +187,21 @@ public class ControllerClientWind {
                 u.SetUserIMG(u.GetUserLogIN(),selFile);
             }
         }
+
+
+    @FXML
+    void savedItemButtonClick(ActionEvent event) throws Exception{
+        ClientPane.setVisible(false);
+        clientPropertiesPane.setVisible(false);
+
+        SavedItemPane.getChildren().clear();
+        SavedItemPane.setVisible(true);
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("../Frontend/savedItemClient.fxml"));
+    Parent root = loader.load();
+    SavedItemClient controller = loader.getController();
+
+    controller.displaySavedItem();
+    SavedItemPane.getChildren().add(root);
+    }
     }
 
